@@ -1,12 +1,7 @@
 # Nginx + Node.js on EC2 — 12 Labs (No Domain Required)
 
 
-This is a comprehensive guide to setting up Nginx as a reverse proxy for Node.js
-applications on an EC2 instance. It covers 12 labs that demonstrate various
-Nginx features and configurations. Everywhere you see `YOUR_PUBLIC_IP`, use
-your EC2 instance's public IPv4 address. Make sure your EC2 **Security Group**
-allows inbound TCP on port **80** (and later whatever custom ports you use,
- e.g. 3000/4000) from your IP or `0.0.0.0/0`.
+This is a comprehensive guide to setting up Nginx as a reverse proxy for Node.js applications on an EC2 instance. It covers 12 labs that demonstrate various Nginx features and configurations. Everywhere you see `YOUR_PUBLIC_IP`, use your EC2 instance's public IPv4 address. Make sure your EC2 **Security Group** allows inbound TCP on port **80** (and later whatever custom ports you use, e.g. 3000/4000) from your IP or `0.0.0.0/0`.
 
 ---
 
