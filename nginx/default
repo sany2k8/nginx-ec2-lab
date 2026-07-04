@@ -1,0 +1,70 @@
+server {
+    listen 80 default_server;
+    server_name _;
+    root /var/www/html;
+    index index.html;
+
+    # Lab 10 — Gzip Compression
+    gzip on;
+    gzip_types
+        text/plain
+        text/css
+        application/json
+        application/javascript;
+
+    # Lab 1 — Serve Static Website
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # Lab 2 — Static CSS and JavaScript
+    location /static/ {
+        alias /var/www/html/static/;
+    }
+
+    # Lab 4 — Serve Images
+    location /images/ {
+        alias /var/www/html/images/;
+        autoindex on;
+    }
+
+    # Lab 3 & 5 — Reverse Proxy to Node.js App 1
+    location /api/ {
+        proxy_pass http://127.0.0.1:3000/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Lab 6 — Custom 404 Page
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+
+    # Lab 7 — Redirect
+    location = /google {
+        return 301 https://www.google.com;
+    }
+
+    # Lab 8 — Password Protection
+    location /admin/ {
+        auth_basic "Restricted";
+        auth_basic_user_file /etc/nginx/.htpasswd;
+        try_files $uri $uri/ =404;
+    }
+
+    # Lab 9 — IP Restriction
+    location /internal/ {
+        allow 203.0.113.45/32;   # replace with YOUR laptop's public IP
+        deny all;
+        try_files $uri $uri/ =404;
+    }
+
+    # Lab 11 — Reverse Proxy to App 2
+    location /app2/ {
+        proxy_pass http://127.0.0.1:4000/;
+        proxy_set_header Host $host;
+    }
+}
